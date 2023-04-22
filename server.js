@@ -31,14 +31,18 @@ app.post('/api/notes', function (req,res) {
     JSON.stringify(notes, null, 4),
     (err) => err ? console.error(err) : console.log("Write success!"))
 })
-// async function deleteCreator () {
-// for (var i = 0; i <= notes.length; i++){
-//     let object = notes[i]
-//     console.log(object.id)
-//     app.delete(`/api/notes/${object.id}`, function (req, res){
-//         console.log(req)
-//     })
-// }}
-//console.log(notes[1])
+
+app.delete('/api/notes/:id', function (req, res){
+    res.json(`${req.method} request recived`)
+    for (var i = 0; i<= notes.length; i++){
+        if (notes[i].id = req.params.id) {
+            notes.splice(i,1)
+            fs.writeFile('./db/db.json',
+            JSON.stringify(notes, null, 4),
+            (err) => err ? console.error(err) : console.log("Write success!"))
+        }
+    }
+
+})
 
 app.listen(PORT, function () {console.log(`serving static assets at ${PORT}`)})
